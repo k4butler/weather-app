@@ -1,0 +1,89 @@
+body {
+  max-width: 60%;
+}
+
+ul {
+  list-style-type: none;
+  text-align: left;
+}
+
+.forecast .fa-sun {
+  font-size: 30px;
+}
+
+.app {
+  padding: 15px 20px;
+  background-color: rgb(96, 250, 212, 0.5);
+  border: 3px solid black;
+}
+
+.city-condition {
+  font-size: 24px;
+  margin-left: 100px;
+}
+
+.city-container {
+  position: relative;
+  bottom: 60px;
+}
+.city-name {
+  font-size: 72px;
+  margin-left: 100px;
+  font-family: "Satisfy", cursive;
+}
+
+.conditions-block .current-conditions,
+.conditions-block .current-temp {
+  text-align: center;
+  position: relative;
+  left: 45px;
+}
+
+.current-name {
+  text-align: right;
+  font-size: 16px;
+}
+
+.current-temp {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.current-val {
+  text-align: left;
+  font-size: 16px;
+}
+
+.degrees {
+  font-size: 15px;
+  position: relative;
+  font-weight: normal;
+  top: -5px;
+}
+
+.fa-sun {
+  color: orange;
+}
+.forecast {
+  text-align: center;
+  position: relative;
+  top: -50px;
+}
+
+.hi-temp {
+  font-weight: bold;
+}
+.low-temp {
+  color: gray;
+  font-size: smaller;
+}
+
+.main-units {
+  font-weight: bold;
+  font-size: 20px;
+}
+.timestamp {
+  text-align: right;
+  font-size: 11px;
+}

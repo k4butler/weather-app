@@ -133,7 +133,8 @@ function retrieveWx(wxData) {
   //document.querySelector("#precipitaion").innerHTML = "NA";
 }
 
-function getPosition() {
+function getPosition(event) {
+  event.preventDefault();
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 let buttonLocation = document.querySelector("#button-location");

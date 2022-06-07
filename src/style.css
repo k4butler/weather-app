@@ -13,6 +13,7 @@ ul {
 }
 
 .app {
+  margin: 10px;
   padding: 15px 20px;
   background-color: rgb(96, 250, 212, 0.5);
   border: 3px solid black;

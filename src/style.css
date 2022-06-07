@@ -4,7 +4,8 @@ body {
 
 ul {
   list-style-type: none;
-  text-align: left;
+  text-align: center;
+  padding-left: 0px;
 }
 
 .forecast .fa-sun {
@@ -15,6 +16,7 @@ ul {
   padding: 15px 20px;
   background-color: rgb(96, 250, 212, 0.5);
   border: 3px solid black;
+  /* max-width: 600px; */
 }
 
 .city-condition {
@@ -30,28 +32,29 @@ ul {
   font-size: 72px;
   margin-left: 100px;
   font-family: "Satisfy", cursive;
+  margin-bottom: -20px;
 }
 
-.conditions-block .current-conditions,
-.conditions-block .current-temp {
+.conditions-block {
   text-align: center;
-  position: relative;
-  left: 45px;
+
+  /* position: relative; */
+  /* left: 45px; */
 }
 
 .current-name {
-  text-align: right;
+  /* text-align: right; */
   font-size: 16px;
 }
 
 .current-temp {
   font-size: 30px;
   font-weight: bold;
-  text-align: right;
+  /* text-align: right; */
 }
 
 .current-val {
-  text-align: left;
+  /* text-align: left; */
   font-size: 16px;
 }
 
@@ -67,8 +70,8 @@ ul {
 }
 .forecast {
   text-align: center;
-  position: relative;
-  top: -50px;
+  /* position: relative;
+    top: -30px; */
 }
 
 .hi-temp {

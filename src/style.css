@@ -1,11 +1,14 @@
 body {
-  max-width: 60%;
+  /* max-width: 60%; */
+  font-family: "Signika Negative", sans-serif;
 }
 
-ul {
+ul,
+li {
   list-style-type: none;
   text-align: center;
-  padding-left: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .forecast .fa-sun {
@@ -17,7 +20,11 @@ ul {
   padding: 15px 20px;
   background-color: rgb(96, 250, 212, 0.5);
   border: 3px solid black;
-  /* max-width: 600px; */
+  max-width: 600px;
+}
+
+.app-wrap {
+  max-width: 600px;
 }
 
 .city-condition {
@@ -38,14 +45,15 @@ ul {
 
 .conditions-block {
   text-align: center;
-
-  /* position: relative; */
-  /* left: 45px; */
 }
 
 .current-name {
   /* text-align: right; */
   font-size: 16px;
+  /* font-family: 'Concert One', cursive; */
+  /* font-family: "Indie Flower", cursive; */
+  /* font-family: "Poiret One", cursive; */
+  /* font-family: "Signika Negative", sans-serif; */
 }
 
 .current-temp {
@@ -60,10 +68,16 @@ ul {
 }
 
 .degrees {
-  font-size: 15px;
+  font-size: 12px;
   position: relative;
   font-weight: normal;
   top: -5px;
+}
+
+/* can't get the padding to disappear */
+.search-buttons {
+  padding: 2px 6px;
+  font-size: 16;
 }
 
 .fa-sun {
@@ -85,9 +99,10 @@ ul {
 
 .main-units {
   font-weight: bold;
-  font-size: 20px;
 }
 .timestamp {
   text-align: right;
   font-size: 11px;
+  margin-top: 10px;
+  padding-right: 20px;
 }

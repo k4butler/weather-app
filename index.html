@@ -17,123 +17,135 @@
       src="https://kit.fontawesome.com/7d736f3127.js"
       crossorigin="anonymous"
     ></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Satisfy&family=Signika+Negative:wght@300&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="app">
-        <div class="row">
-          <div class="col-6 city-search">
-            <form class="city-search-form">
-              <input type="text" placeholder="Enter City" id="city-input" />
-              <button type="submit" class="btn btn-light">Submit</button>
-              <button type="submit" class="btn btn-light" id="button-location">
-                Use My Location
-              </button>
-            </form>
-            <div id="current-day-time"></div>
+      <div class="app-wrap">
+        <div class="app">
+          <div class="row">
+            <div class="col-7 city-search">
+              <form class="city-search-form">
+                <input type="text" placeholder="Enter City" id="city-input" />
+                <button
+                  type="submit"
+                  class="btn btn-outline-dark search-buttons"
+                >
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-outline-dark search-buttons"
+                  id="button-location"
+                >
+                  <i class="fa-solid fa-location-dot"></i>
+                </button>
+              </form>
+              <div id="current-day-time"></div>
+            </div>
+
+            <div class="col-5 conditions-block">
+              Current Conditions
+              <ul class="conditions-list">
+                <li>
+                  <span class="col-12 current-temp">
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <span id="current-temperature"></span>
+                    <a href="#" class="degrees degreesF main-units">F</a>
+                    <span class="degrees degrees-spacer">|</span>
+                    <a href="#" class="degrees degreesC">C</a>
+                  </span>
+                </li>
+                <li>
+                  <span class="col-8 current-name">Dewpoint</span>
+                  <span class="col-4 current-val current-dewpoint">
+                    <span id="dewpoint"></span>°
+                  </span>
+                </li>
+                <li>
+                  <span class="col-8 current-name">Humidity</span>
+                  <span class="col-4 current-val current-humidity">
+                    <span id="humidity"></span>
+                  </span>
+                </li>
+                <li>
+                  <span class="col-8 current-name">Wind</span>
+                  <span class="col-4 current-val current-windspeed">
+                    <span id="windspeed"></span>
+                  </span>
+                </li>
+                <li>
+                  <span class="col-8 current-name">Chance Precip</span>
+                  <span class="col-4 current-val current-precip">
+                    <span id="precipitation"></span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="row city-container">
+            <span class="city-condition"></span>
+            <h1 class="city-name" id="city-name"></h1>
           </div>
 
-          <div class="col-6 conditions-block">
-            Current Conditions
-            <ul class="conditions-list">
-              <li>
-                <span class="col-12 current-temp">
-                  <span id="current-temperature"></span>
-                  <a href="#" class="degrees degreesF main-units">F</a>
-                  <span class="degrees degrees-spacer">|</span>
-                  <a href="#" class="degrees degreesC">C</a>
-                  <span><i class="fa-solid fa-sun"></i></span>
-                </span>
-              </li>
-              <li>
-                <span class="col-8 current-name">Dewpoint</span>
-                <span class="col-4 current-val current-dewpoint">
-                  <span id="dewpoint"></span>°
-                </span>
-              </li>
-              <li>
-                <span class="col-8 current-name">Humidity</span>
-                <span class="col-4 current-val current-humidity">
-                  <span id="humidity"></span>
-                </span>
-              </li>
-              <li>
-                <span class="col-8 current-name">Wind</span>
-                <span class="col-4 current-val current-windspeed">
-                  <span id="windspeed"></span>
-                </span>
-              </li>
-              <li>
-                <span class="col-8 current-name">Chance Precip</span>
-                <span class="col-4 current-val current-precip">
-                  <span id="precipitation"></span>
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="row city-container">
-          <span class="city-condition"></span>
-          <h1 class="city-name" id="city-name"></h1>
-        </div>
-
-        <div class="row forecast">
-          <div class="col day1">
-            <ul>
-              <li>Today</li>
-              <li><i class="fa-solid fa-sun"></i></li>
-              <li>
-                <span class="hi-temp">85°</span>
-                <span class="low-temp"> | 53°</span>
-              </li>
-            </ul>
-          </div>
-          <div class="col day2">
-            <ul>
-              <li>Tue</li>
-              <li><i class="fa-solid fa-sun"></i></li>
-              <li>
-                <span class="hi-temp">80°</span>
-                <span class="low-temp"> | 50°</span>
-              </li>
-            </ul>
-          </div>
-          <div class="col day3">
-            <ul>
-              <li>Wed</li>
-              <li><i class="fa-solid fa-sun"></i></li>
-              <li>
-                <span class="hi-temp">85°</span>
-                <span class="low-temp"> | 45°</span>
-              </li>
-            </ul>
-          </div>
-          <div class="col day4">
-            <ul>
-              <li>Thu</li>
-              <li><i class="fa-solid fa-sun"></i></li>
-              <li>
-                <span class="hi-temp">77°</span>
-                <span class="low-temp"> | 40°</span>
-              </li>
-            </ul>
-          </div>
-          <div class="col day5">
-            <ul>
-              <li>Fri</li>
-              <li><i class="fa-solid fa-sun"></i></li>
-              <li>
-                <span class="hi-temp">66°</span>
-                <span class="low-temp"> | 36°</span>
-              </li>
-            </ul>
+          <div class="row forecast">
+            <div class="col day1">
+              <ul>
+                <li>Today</li>
+                <li><i class="fa-solid fa-sun"></i></li>
+                <li>
+                  <span class="hi-temp">85°</span>
+                  <span class="low-temp"> | 53°</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col day2">
+              <ul>
+                <li>Tue</li>
+                <li><i class="fa-solid fa-sun"></i></li>
+                <li>
+                  <span class="hi-temp">80°</span>
+                  <span class="low-temp"> | 50°</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col day3">
+              <ul>
+                <li>Wed</li>
+                <li><i class="fa-solid fa-sun"></i></li>
+                <li>
+                  <span class="hi-temp">85°</span>
+                  <span class="low-temp"> | 45°</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col day4">
+              <ul>
+                <li>Thu</li>
+                <li><i class="fa-solid fa-sun"></i></li>
+                <li>
+                  <span class="hi-temp">77°</span>
+                  <span class="low-temp"> | 40°</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col day5">
+              <ul>
+                <li>Fri</li>
+                <li><i class="fa-solid fa-sun"></i></li>
+                <li>
+                  <span class="hi-temp">66°</span>
+                  <span class="low-temp"> | 36°</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="timestamp">

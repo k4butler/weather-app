@@ -1,39 +1,3 @@
-function toDegreesC() {
-  let degreesC = 56;
-  let displaytemp = document.querySelector("#current-temp");
-  displaytemp.innerHTML = `${degreesC}`;
-  let unitC = document.querySelector(".degreesC");
-  let unitF = document.querySelector(".degreesF");
-  unitC.classList.add("main-units");
-  if (unitF.classList.contains("main-units")) {
-    unitF.classList.remove("main-units");
-  }
-}
-
-function toDegreesF() {
-  let degreesC = 20;
-  let degreesF = Math.round((degreesC * 9) / 5 + 32);
-  let displaytemp = document.querySelector("#current-temp");
-  displaytemp.innerHTML = `${degreesF}`;
-  let unitC = document.querySelector(".degreesC");
-  let unitF = document.querySelector(".degreesF");
-
-  if (unitF.classList.contains("main-units")) {
-    null;
-  } else {
-    unitF.classList.add("main-units");
-  }
-  if (unitC.classList.contains("main-units")) {
-    unitC.classList.remove("main-units");
-  }
-}
-
-let degreesFtoC = document.querySelector(".degreesC");
-degreesFtoC.addEventListener("click", toDegreesC);
-
-let degreesCtoF = document.querySelector(".degreesF");
-degreesCtoF.addEventListener("click", toDegreesF);
-
 let allMonths = [
   "Jan",
   "Feb",
@@ -64,12 +28,15 @@ let month = allMonths[now.getMonth()];
 let weekday = allDays[now.getDay()];
 let theDate = now.getDate();
 let hour = now.getHours();
+let year = now.getFullYear();
 let minutes = now.getMinutes();
 if (minutes < 10) {
   minutes = `0${minutes}`;
 }
 let currentDayTime = document.querySelector("#current-day-time");
+let updateTime = document.querySelector("#timestamp");
 currentDayTime.innerHTML = `${weekday} ${hour}:${minutes}`;
+updateTime.innerHTML = `${hour}:${minutes} ${month} ${theDate}, ${year}`;
 
 function search(city) {
   //Now get Wx Data by City Name
@@ -104,30 +71,84 @@ function showPosition(position) {
   console.log(ApiUrlGeo);
 
   axios.get(ApiUrlGeo).then(retrieveWx);
+  // axios.get(ApiUrlGeo).then(retrieveWxFcst);
 }
+
+let tempF = null;
+let tempC = null;
 
 function retrieveWx(wxData) {
   console.log(wxData);
-  let temp = Math.round(wxData.data.main.temp);
-  //let tempDew = wxData.data.main.temp;
+  tempF = Math.round(wxData.data.main.temp);
+  tempC = Math.round(((wxData.data.main.temp - 32) * 5) / 9);
   let RH = wxData.data.main.humidity;
   let tempIndex = Math.round(wxData.data.main.feels_like);
-  let wxCondition = wxData.data.weather[0].main;
+  let wxDescription = wxData.data.weather[0].description;
   let windSpeed = Math.round(wxData.data.wind.speed);
   let windGust = Math.round(wxData.data.wind.gust);
+  let wxIcon = wxData.data.weather[0].icon;
   console.log(
-    `temp is ${temp}°F, RH is ${RH}%, feels like ${tempIndex}°F, conditions is ${wxCondition}, wind speed is ${windSpeed} mph, gusting to ${windGust}`
+    `temp is ${tempF}°F, RHis ${RH}%, feels like ${tempIndex}°F, conditions is ${wxDescription}, wind speed is ${windSpeed} mph`
   );
 
-  document.querySelector(".city-condition").innerHTML = `${wxCondition} in`;
+  document.querySelector(".city-description").innerHTML = `${wxDescription} in`;
   document.querySelector("#city-name").innerHTML = wxData.data.name;
-  document.querySelector("#current-temperature").innerHTML = temp;
-  document.querySelector("#dewpoint").innerHTML = "NA";
+  document.querySelector("#current-temp").innerHTML = tempF;
   document.querySelector("#humidity").innerHTML = `${RH}%`;
   document.querySelector("#windspeed").innerHTML = `${windSpeed} mph`;
-  //document.querySelector("#windgust").innerHTML = windGust;
-  //document.querySelector("#precipitaion").innerHTML = "NA";
+  document
+    .querySelector("#wx-icon")
+    .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon}.png`);
+  document.querySelector("#wx-icon").setAttribute("alt", `${wxDescription}`);
 }
+
+function toDegreesC(event) {
+  event.preventDefault();
+  let displaytemp = document.querySelector("#current-temp");
+  displaytemp.innerHTML = `${tempC}`;
+  unitC.classList.add("active-units");
+  if (unitF.classList.contains("active-units")) {
+    unitF.classList.remove("active-units");
+  }
+}
+
+function toDegreesF(event) {
+  event.preventDefault();
+  let displaytemp = document.querySelector("#current-temp");
+  displaytemp.innerHTML = `${tempF}`;
+
+  if (unitF.classList.contains("active-units")) {
+    null;
+  } else {
+    unitF.classList.add("active-units");
+  }
+  if (unitC.classList.contains("active-units")) {
+    unitC.classList.remove("active-units");
+  }
+}
+
+let degreesFtoC = document.querySelector(".degreesC");
+degreesFtoC.addEventListener("click", toDegreesC);
+
+let degreesCtoF = document.querySelector(".degreesF");
+degreesCtoF.addEventListener("click", toDegreesF);
+
+let unitC = document.querySelector(".degreesC");
+let unitF = document.querySelector(".degreesF");
+
+// function retrieveWxFcst(wxDataFcst) {
+//   console.log(wxDataFcst);
+//   let temp = Math.round(Fcst.data.main.temp);
+//   let wxIcon = Fcst.data.weather[0].icon;
+
+//   document.querySelector(".city-condition").innerHTML = `${wxDescription} in`;
+//   document.querySelector("#city-name").innerHTML = Fcst.data.name;
+//   document
+//     .querySelector("#wx-icon-day2")
+//     .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon-day2}.png`);
+//   //document.querySelector("#windgust").innerHTML = windGust;
+//   //document.querySelector("#precipitaion").innerHTML = "NA";
+// }
 
 function getPosition(event) {
   event.preventDefault();

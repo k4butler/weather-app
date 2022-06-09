@@ -52,46 +52,45 @@
             </div>
 
             <div class="col-5 conditions-block">
-              Current Conditions
               <ul class="conditions-list">
                 <li>
                   <span class="col-12 current-temp">
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <span id="current-temperature"></span>
-                    <a href="#" class="degrees degreesF main-units">F</a>
+                    <img src="" alt="" id="wx-icon" />
+                    <span id="current-temp"></span>
+                    <a href="#" class="degrees degreesF active-units">F</a>
                     <span class="degrees degrees-spacer">|</span>
                     <a href="#" class="degrees degreesC">C</a>
                   </span>
                 </li>
-                <li>
+                <!-- <li>
                   <span class="col-8 current-name">Dewpoint</span>
                   <span class="col-4 current-val current-dewpoint">
                     <span id="dewpoint"></span>°
                   </span>
-                </li>
+                </li> -->
                 <li>
-                  <span class="col-8 current-name">Humidity</span>
-                  <span class="col-4 current-val current-humidity">
+                  <span class="col-10 current-name">Humidity:</span>
+                  <span class="col-2 current-val current-humidity">
                     <span id="humidity"></span>
                   </span>
                 </li>
                 <li>
-                  <span class="col-8 current-name">Wind</span>
-                  <span class="col-4 current-val current-windspeed">
+                  <span class="col-10 current-name">Wind:</span>
+                  <span class="col-2 current-val current-windspeed">
                     <span id="windspeed"></span>
                   </span>
                 </li>
-                <li>
+                <!-- <li>
                   <span class="col-8 current-name">Chance Precip</span>
                   <span class="col-4 current-val current-precip">
                     <span id="precipitation"></span>
                   </span>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
           <div class="row city-container">
-            <span class="city-condition"></span>
+            <span class="city-description"></span>
             <h1 class="city-name" id="city-name"></h1>
           </div>
 
@@ -99,7 +98,7 @@
             <div class="col day1">
               <ul>
                 <li>Today</li>
-                <li><i class="fa-solid fa-sun"></i></li>
+                <li><img src="" alt="" id="wx-icon-day1" /></li>
                 <li>
                   <span class="hi-temp">85°</span>
                   <span class="low-temp"> | 53°</span>
@@ -109,7 +108,7 @@
             <div class="col day2">
               <ul>
                 <li>Tue</li>
-                <li><i class="fa-solid fa-sun"></i></li>
+                <li><img src="" alt="" id="wx-icon-day2" /></li>
                 <li>
                   <span class="hi-temp">80°</span>
                   <span class="low-temp"> | 50°</span>
@@ -119,7 +118,7 @@
             <div class="col day3">
               <ul>
                 <li>Wed</li>
-                <li><i class="fa-solid fa-sun"></i></li>
+                <li><img src="" alt="" id="wx-icon-day3" /></li>
                 <li>
                   <span class="hi-temp">85°</span>
                   <span class="low-temp"> | 45°</span>
@@ -129,7 +128,7 @@
             <div class="col day4">
               <ul>
                 <li>Thu</li>
-                <li><i class="fa-solid fa-sun"></i></li>
+                <li><img src="" alt="" id="wx-icon-day4" /></li>
                 <li>
                   <span class="hi-temp">77°</span>
                   <span class="low-temp"> | 40°</span>
@@ -139,7 +138,7 @@
             <div class="col day5">
               <ul>
                 <li>Fri</li>
-                <li><i class="fa-solid fa-sun"></i></li>
+                <li><img src="" alt="" id="wx-icon-day5" /></li>
                 <li>
                   <span class="hi-temp">66°</span>
                   <span class="low-temp"> | 36°</span>
@@ -148,11 +147,11 @@
             </div>
           </div>
         </div>
-        <div class="timestamp">
+        <div class="timestamp" id="timestamp">
           <a href="https://github.com/k4butler?tab=repositories">
             Find this app and more on GitHub |
           </a>
-          last update: 4pm Feb 22, 2022
+          last update: <span>4pm Feb 22, 2022</span>
         </div>
       </div>
     </div>

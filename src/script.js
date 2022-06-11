@@ -100,6 +100,32 @@ function retrieveWx(wxData) {
     .querySelector("#wx-icon")
     .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon}.png`);
   document.querySelector("#wx-icon").setAttribute("alt", `${wxDescription}`);
+
+  displayForecast();
+}
+
+function displayForecast() {
+  let forecastHTML = "";
+  forecastHTML = forecastHTML + `<div class="row">`;
+  let day = ["Today", "Mon", "Tue", "Wed"];
+
+  day.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+              <ul>
+                <li>${day}</li>
+                <li><img src="" alt="" id="wx-icon" /></li>
+                <li>
+                  <span class="hi-temp">85°</span>
+                  <span class="low-temp"> | 53°</span>
+                </li>
+              </ul>
+            </div>`;
+  });
+
+  forecastHTML = forecastHTML + ` </div>`;
+  document.querySelector("#forecast").innerHTML = forecastHTML;
 }
 
 function toDegreesC(event) {

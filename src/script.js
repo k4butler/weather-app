@@ -101,27 +101,60 @@ function retrieveWx(wxData) {
     .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon}.png`);
   document.querySelector("#wx-icon").setAttribute("alt", `${wxDescription}`);
 
-  displayForecast();
+  getForecast(wxData.data.coord);
 }
 
-function displayForecast() {
+function getForecast(coordinates) {
+  console.log(coordinates);
+
+  let ApiEndpoint = `https://api.openweathermap.org/data/2.5/onecall?`;
+  let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
+  let units = `imperial`;
+  let latitude = coordinates.lat;
+  let longitude = coordinates.lon;
+  let exclude = `hourly,minutely,alerts`;
+
+  let ApiUrlForecast = `${ApiEndpoint}&lat=${latitude}&lon=${longitude}&exclude=${exclude}&appid=${wxKey}&units=${units}`;
+  console.log(ApiUrlForecast);
+  axios.get(ApiUrlForecast).then(displayForecast);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastData = response.data.daily;
+
   let forecastHTML = "";
   forecastHTML = forecastHTML + `<div class="row">`;
-  let day = ["Today", "Mon", "Tue", "Wed"];
 
-  day.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
+  forecastData.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
               <ul>
-                <li>${day}</li>
-                <li><img src="" alt="" id="wx-icon" /></li>
+                <li>${formatDay(forecastDay.dt)}</li>
+                <li><img src="http://openweathermap.org/img/wn/${
+                  forecastDay.weather[0].icon
+                }@2x.png" alt="" id="wx-icon" /></li>
                 <li>
-                  <span class="hi-temp">85°</span>
-                  <span class="low-temp"> | 53°</span>
+                  <span class="hi-temp">${Math.round(
+                    forecastDay.temp.max
+                  )}°</span>
+                  <span class="low-temp"> | ${Math.round(
+                    forecastDay.temp.min
+                  )}°</span>
                 </li>
               </ul>
             </div>`;
+    }
   });
 
   forecastHTML = forecastHTML + ` </div>`;

@@ -138,12 +138,12 @@ function displayForecast(response) {
     if (index < 6) {
       forecastHTML =
         forecastHTML +
-        `<div class="col-2">
+        `<div class="daily-forecast col-2">
               <ul>
                 <li>${formatDay(forecastDay.dt)}</li>
-                <li><img src="http://openweathermap.org/img/wn/${
+                <li class="daily-icon"><img src="http://openweathermap.org/img/wn/${
                   forecastDay.weather[0].icon
-                }@2x.png" alt="" id="wx-icon" /></li>
+                }@2x.png" alt="" width="40" /></li>
                 <li>
                   <span class="hi-temp">${Math.round(
                     forecastDay.temp.max
@@ -194,20 +194,6 @@ degreesCtoF.addEventListener("click", toDegreesF);
 
 let unitC = document.querySelector(".degreesC");
 let unitF = document.querySelector(".degreesF");
-
-// function retrieveWxFcst(wxDataFcst) {
-//   console.log(wxDataFcst);
-//   let temp = Math.round(Fcst.data.main.temp);
-//   let wxIcon = Fcst.data.weather[0].icon;
-
-//   document.querySelector(".city-condition").innerHTML = `${wxDescription} in`;
-//   document.querySelector("#city-name").innerHTML = Fcst.data.name;
-//   document
-//     .querySelector("#wx-icon-day2")
-//     .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon-day2}.png`);
-//   //document.querySelector("#windgust").innerHTML = windGust;
-//   //document.querySelector("#precipitaion").innerHTML = "NA";
-// }
 
 function getPosition(event) {
   event.preventDefault();

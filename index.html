@@ -53,15 +53,17 @@
 
             <div class="col-5 conditions-block">
               <ul class="conditions-list">
-                <li>
+                <li class="d-flex align-items-center">
                   <span class="col-12 current-temp">
-                    <img src="" alt="" id="wx-icon" />
-                    <span id="current-temp"></span>
-                    <a href="#" class="degrees degreesF active-units">F</a>
+                    <img src="" alt="" width="45" id="wx-icon" />
+                    <span class="float-left" id="current-temp"></span>
+                    <a href="#" class="degrees degreesF active-units">°F</a>
                     <span class="degrees degrees-spacer">|</span>
-                    <a href="#" class="degrees degreesC">C</a>
+                    <a href="#" class="degrees degreesC">°C</a>
                   </span>
                 </li>
+
+                <!-- d-flex instead of clearfix also add align-items-center -->
                 <!-- <li>
                   <span class="col-8 current-name">Dewpoint</span>
                   <span class="col-4 current-val current-dewpoint">
@@ -94,7 +96,7 @@
             <h1 class="city-name" id="city-name"></h1>
           </div>
 
-          <div id="forecast">forecast</div>
+          <div id="forecast"></div>
         </div>
         <div class="timestamp">
           <a href="https://github.com/k4butler?tab=repositories">

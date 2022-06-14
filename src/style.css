@@ -6,15 +6,14 @@ body {
 ul,
 li {
   list-style-type: none;
-  text-align: center;
   padding: 0px;
   margin: 0px;
+  text-align: center;
 }
 
-.forecast .fa-sun {
-  font-size: 30px;
+ul {
+  text-align: center;
 }
-
 .app {
   margin: 10px;
   padding: 15px 20px;
@@ -45,22 +44,15 @@ li {
 }
 
 .current-name {
-  /* text-align: right; */
   font-size: 16px;
-  /* font-family: 'Concert One', cursive; */
-  /* font-family: "Indie Flower", cursive; */
-  /* font-family: "Poiret One", cursive; */
-  /* font-family: "Signika Negative", sans-serif; */
 }
 
 .current-temp {
   font-size: 30px;
   font-weight: bold;
-  /* text-align: right; */
 }
 
 .current-val {
-  /* text-align: left; */
   font-size: 16px;
 }
 
@@ -68,7 +60,7 @@ li {
   font-size: 12px;
   position: relative;
   font-weight: normal;
-  top: -5px;
+  top: -1px;
 }
 
 /* can't get the padding to disappear */
@@ -77,13 +69,9 @@ li {
   font-size: 16;
 }
 
-.fa-sun {
-  color: orange;
-}
 .forecast {
   text-align: center;
-  /* position: relative;
-    top: -30px; */
+  font-size: 30px;
 }
 
 .hi-temp {

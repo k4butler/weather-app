@@ -23,16 +23,17 @@ li {
   max-width: 600px;
 }
 
+.city-container {
+  position: relative;
+  bottom: 25px;
+}
+
 .city-description {
   font-size: 24px;
   margin-left: 90px;
   text-transform: capitalize;
 }
 
-.city-container {
-  position: relative;
-  bottom: 25px;
-}
 .city-name {
   font-size: 72px;
   margin-left: 90px;
@@ -47,7 +48,13 @@ li {
 .current-temp {
   font-size: 30px;
   font-weight: bold;
-  padding-left: 50px;
+  /* padding-left: 20px; */
+}
+
+.current-temp-num {
+  position: relative;
+  font-weight: normal;
+  left: -8px;
 }
 
 .current-val {
@@ -58,14 +65,16 @@ li {
   font-size: 12px;
   position: relative;
   font-weight: normal;
-  top: 8px;
+  top: -10px;
+  left: -12px;
 }
 
-.search-buttons {
-  padding: 2px 6px;
-  font-size: 16;
+.active-units {
+  font-weight: bolder;
+  color: black;
+  text-decoration: none;
 }
-
+/* if you want to use this, you have to download teh bold font style? */
 .forecast {
   text-align: center;
   font-size: 30px;
@@ -80,13 +89,13 @@ li {
   font-size: smaller;
 }
 
-.active-units {
-  font-weight: bold;
-  color: black;
-  text-decoration: none;
-}
 .timestamp {
   text-align: right;
   font-size: 11px;
   padding-right: 20px;
+}
+
+.search-buttons {
+  padding: 2px 6px;
+  font-size: 16;
 }

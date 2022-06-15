@@ -50,6 +50,7 @@ ul {
 .current-temp {
   font-size: 30px;
   font-weight: bold;
+  padding-left: 50px;
 }
 
 .current-val {
@@ -60,7 +61,7 @@ ul {
   font-size: 12px;
   position: relative;
   font-weight: normal;
-  top: -1px;
+  top: 8px;
 }
 
 /* can't get the padding to disappear */

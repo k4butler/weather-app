@@ -136,11 +136,17 @@ function displayForecast(response) {
 
   forecastData.forEach(function (forecastDay, index) {
     if (index < 6) {
+      let theDay = formatDay(forecastDay.dt);
+      if (index < 1) {
+        theDay = "Today";
+      }
       forecastHTML =
         forecastHTML +
         `<div class="daily-forecast col-2">
               <ul>
-                <li>${formatDay(forecastDay.dt)}</li>
+                <li>
+                ${theDay}
+                </li>
                 <li class="daily-icon"><img src="http://openweathermap.org/img/wn/${
                   forecastDay.weather[0].icon
                 }@2x.png" alt="" width="40" /></li>

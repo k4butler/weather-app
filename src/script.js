@@ -172,8 +172,10 @@ function toDegreesC(event) {
   let displaytemp = document.querySelector("#current-temp");
   displaytemp.innerHTML = `${tempC}`;
   unitC.classList.add("active-units");
+  unitC.classList.remove("inactive-units");
   if (unitF.classList.contains("active-units")) {
     unitF.classList.remove("active-units");
+    unitF.classList.add("inactive-units");
   }
 }
 
@@ -186,9 +188,11 @@ function toDegreesF(event) {
     null;
   } else {
     unitF.classList.add("active-units");
+    unitF.classList.remove("inactive-units");
   }
   if (unitC.classList.contains("active-units")) {
     unitC.classList.remove("active-units");
+    unitC.classList.add("inactive-units");
   }
 }
 

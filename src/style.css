@@ -67,13 +67,31 @@ li {
   font-weight: normal;
   top: -10px;
   left: -12px;
+  text-decoration: none;
 }
 
+.daily-icon,
+#wx-icon {
+  filter: drop-shadow(0px -0.1px 0.2rem rgba(6, 4, 4, 0.3));
+  /* rgb(250, 9, 47, 0.5)); */
+}
 .active-units {
   font-weight: bolder;
   color: black;
   text-decoration: none;
 }
+
+.active-units:hover {
+  color: black;
+  text-decoration: none;
+  cursor: text;
+}
+
+.inactive-units:hover {
+  font-size: 14px;
+  text-decoration: underline;
+}
+
 /* if you want to use this, you have to download teh bold font style? */
 .forecast {
   text-align: center;

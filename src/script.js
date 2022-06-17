@@ -1,42 +1,60 @@
-let allMonths = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+function getTime(timestamp) {
+  let allMonths = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
-let allDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+  let allDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-let now = new Date();
-let month = allMonths[now.getMonth()];
-let weekday = allDays[now.getDay()];
-let theDate = now.getDate();
-let hour = now.getHours();
-let year = now.getFullYear();
-let minutes = now.getMinutes();
-if (minutes < 10) {
-  minutes = `0${minutes}`;
+  let now = new Date(timestamp * 1000);
+  let month = allMonths[now.getMonth()];
+  let weekday = allDays[now.getDay()];
+  let theDate = now.getDate();
+  let hour = now.getHours();
+
+  let year = now.getFullYear();
+  let minutes = now.getMinutes();
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  if (hour < 12) {
+    minutes = `${minutes} AM`;
+    if (hour == 0) {
+      hour = 12;
+    }
+  } else {
+    minutes = `${minutes} PM`;
+    if (hour != 12) {
+      hour = hour - 12;
+    }
+  }
+
+  let currentDayTime = document.querySelector("#current-day-time");
+  let updateTime = document.querySelector("#timestamp");
+  currentDayTime.innerHTML = `As of ${hour}:${minutes} ${weekday}:`;
+  updateTime.innerHTML = `Last upate: ${hour}:${minutes} ${month} ${theDate}, ${year}`;
+  console.log(`${weekday} ${hour}:${minutes}`);
 }
-let currentDayTime = document.querySelector("#current-day-time");
-let updateTime = document.querySelector("#timestamp");
-currentDayTime.innerHTML = `${weekday} ${hour}:${minutes}`;
-updateTime.innerHTML = `${hour}:${minutes} ${month} ${theDate}, ${year}`;
 
 function search(city) {
   //Now get Wx Data by City Name
@@ -87,9 +105,9 @@ function retrieveWx(wxData) {
   let windSpeed = Math.round(wxData.data.wind.speed);
   let windGust = Math.round(wxData.data.wind.gust);
   let wxIcon = wxData.data.weather[0].icon;
-  console.log(
-    `temp is ${tempF}°F, RHis ${RH}%, feels like ${tempIndex}°F, conditions is ${wxDescription}, wind speed is ${windSpeed} mph`
-  );
+  // console.log(
+  //   `temp is ${tempF}°F, RHis ${RH}%, feels like ${tempIndex}°F, conditions is ${wxDescription}, wind speed is ${windSpeed} mph`
+  // );
 
   document.querySelector(".city-description").innerHTML = `${wxDescription} in`;
   document.querySelector("#city-name").innerHTML = wxData.data.name;
@@ -100,6 +118,8 @@ function retrieveWx(wxData) {
     .querySelector("#wx-icon")
     .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon}.png`);
   document.querySelector("#wx-icon").setAttribute("alt", `${wxDescription}`);
+
+  getTime(wxData.data.dt);
 
   getForecast(wxData.data.coord);
 }

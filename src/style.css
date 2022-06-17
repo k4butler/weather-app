@@ -11,6 +11,11 @@ li {
   text-align: center;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .app {
   margin: 5px;
   padding: 15px 20px;

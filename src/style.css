@@ -20,7 +20,9 @@ li {
 .app {
   margin: 5px;
   padding: 15px 20px;
-  background-color: rgb(96, 250, 212, 0.5);
+  //background-color: rgb(96, 250, 212, 0.5);
+  box-shadow: 10px 10px 23px rgba(0, 0, 0, 0.3);
+  background-color: #b0fcea;
   border: 3px solid black;
   max-width: 600px;
 }

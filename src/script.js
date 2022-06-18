@@ -208,8 +208,8 @@ function convertTemp(event) {
       forecastHiTemps[index].innerHTML = `${Math.round(
         ((forecastTemp.temp.max - 32) * 5) / 9
       )}°`;
-      forecastLowTemps[index].innerHTML = `${Math.round(
-        ((forecastTemp.temp.low - 32) * 5) / 9
+      forecastLowTemps[index].innerHTML = ` | ${Math.round(
+        ((forecastTemp.temp.min - 32) * 5) / 9
       )}°`;
     });
   } else {

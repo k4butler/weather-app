@@ -205,13 +205,6 @@ function convertTemp(event) {
     unitC.classList.remove("inactive-units");
 
     forecastData.forEach(function (forecastTemp, index) {
-      console.log(
-        `Testing if i still have access to day 1 MaxT:  ${forecastTemp[0].temp.max}`
-      );
-
-      console.log(
-        `Testing that I have access to day 1 MaxT:  ${forecastTemp[index].temp.max}`
-      );
       forecastHiTemps[index].innerHTML = `${Math.round(
         ((forecastTemp.temp.max - 32) * 5) / 9
       )}°`;

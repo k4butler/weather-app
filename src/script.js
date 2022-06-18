@@ -220,18 +220,15 @@ function convertTemp(event) {
       forecastHiTemps[index].innerHTML = `${Math.round(
         forecastTemp.temp.max
       )}°`;
-      forecastLowTemps[index].innerHTML = `${Math.round(
+      forecastLowTemps[index].innerHTML = ` | ${Math.round(
         forecastTemp.temp.min
       )}°`;
     });
 
-    if (unitC.classList.contains("active-units")) {
-      unitC.classList.remove("active-units");
-      unitC.classList.add("inactive-units");
-    } else {
-      unitF.classList.add("active-units");
-      unitF.classList.remove("inactive-units");
-    }
+    unitC.classList.remove("active-units");
+    unitC.classList.add("inactive-units");
+    unitF.classList.add("active-units");
+    unitF.classList.remove("inactive-units");
   }
 }
 

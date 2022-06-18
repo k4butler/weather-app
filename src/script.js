@@ -149,7 +149,7 @@ function formatDay(timestamp) {
 
 function displayForecast(response) {
   console.log(response.data.daily);
-  let forecastData = response.data.daily;
+  forecastData = response.data.daily;
 
   let forecastHTML = "";
   forecastHTML = forecastHTML + `<div class="row">`;
@@ -187,43 +187,71 @@ function displayForecast(response) {
   document.querySelector("#forecast").innerHTML = forecastHTML;
 }
 
-function toDegreesC(event) {
+function convertTemp(event) {
   event.preventDefault();
   let displaytemp = document.querySelector("#current-temp");
-  displaytemp.innerHTML = `${tempC}`;
-  unitC.classList.add("active-units");
-  unitC.classList.remove("inactive-units");
+  let forecastHiTemps = document.querySelectorAll("span.hi-temp");
+  let forecastLowTemps = document.querySelectorAll("span.low-temp");
+  console.log(
+    `Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`
+  );
+  //degreesFtoC
   if (unitF.classList.contains("active-units")) {
     unitF.classList.remove("active-units");
     unitF.classList.add("inactive-units");
-  }
-}
 
-function toDegreesF(event) {
-  event.preventDefault();
-  let displaytemp = document.querySelector("#current-temp");
-  displaytemp.innerHTML = `${tempF}`;
+    displaytemp.innerHTML = `${tempC}`;
+    unitC.classList.add("active-units");
+    unitC.classList.remove("inactive-units");
 
-  if (unitF.classList.contains("active-units")) {
-    null;
+    forecastData.forEach(function (forecastTemp, index) {
+      console.log(
+        `Testing if i still have access to day 1 MaxT:  ${forecastTemp[0].temp.max}`
+      );
+
+      console.log(
+        `Testing that I have access to day 1 MaxT:  ${forecastTemp[index].temp.max}`
+      );
+      forecastHiTemps[index].innerHTML = `${Math.round(
+        ((forecastTemp.temp.max - 32) * 5) / 9
+      )}°`;
+      forecastLowTemps[index].innerHTML = `${Math.round(
+        ((forecastTemp.temp.low - 32) * 5) / 9
+      )}°`;
+    });
   } else {
-    unitF.classList.add("active-units");
-    unitF.classList.remove("inactive-units");
-  }
-  if (unitC.classList.contains("active-units")) {
-    unitC.classList.remove("active-units");
-    unitC.classList.add("inactive-units");
+    //degreesCtoF
+    displaytemp.innerHTML = `${tempF}`;
+
+    forecastData.forEach(function (forecastTemp, index) {
+      forecastHiTemps[index].innerHTML = `${Math.round(
+        forecastTemp.temp.max
+      )}°`;
+      forecastLowTemps[index].innerHTML = `${Math.round(
+        forecastTemp.temp.min
+      )}°`;
+    });
+
+    if (unitC.classList.contains("active-units")) {
+      unitC.classList.remove("active-units");
+      unitC.classList.add("inactive-units");
+    } else {
+      unitF.classList.add("active-units");
+      unitF.classList.remove("inactive-units");
+    }
   }
 }
 
 let degreesFtoC = document.querySelector(".degreesC");
-degreesFtoC.addEventListener("click", toDegreesC);
+degreesFtoC.addEventListener("click", convertTemp);
 
 let degreesCtoF = document.querySelector(".degreesF");
-degreesCtoF.addEventListener("click", toDegreesF);
+degreesCtoF.addEventListener("click", convertTemp);
 
 let unitC = document.querySelector(".degreesC");
 let unitF = document.querySelector(".degreesF");
+
+let forecastData = [];
 
 function getPosition(event) {
   event.preventDefault();

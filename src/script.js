@@ -96,6 +96,7 @@ let tempF = null;
 let tempC = null;
 let feelsLikeTempF = null;
 let feelsLikeTempC = null;
+
 function retrieveWx(wxData) {
   console.log(wxData);
   tempF = Math.round(wxData.data.main.temp);
@@ -110,12 +111,12 @@ function retrieveWx(wxData) {
   document.querySelector(".city-description").innerHTML = `${wxDescription} in`;
   document.querySelector("#city-name").innerHTML = wxData.data.name;
   document.querySelector("#current-temp").innerHTML = tempF;
-  document.querySelector("#feels-like").innerHTML = `${feelsLikeTempF}°`;
+  document.querySelector("#feels-like").innerHTML = feelsLikeTempF;
   document.querySelector("#humidity").innerHTML = `${RH}%`;
   document.querySelector("#windspeed").innerHTML = `${windSpeed} mph`;
   document
     .querySelector("#wx-icon")
-    .setAttribute("src", `https://openweathermap.org/img/wn/${wxIcon}.png`);
+    .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon}.png`);
   document.querySelector("#wx-icon").setAttribute("alt", `${wxDescription}`);
 
   getTime(wxData.data.dt);
@@ -166,7 +167,7 @@ function displayForecast(response) {
                 <li>
                 ${theDay}
                 </li>
-                <li class="daily-icon"><img src="https://openweathermap.org/img/wn/${
+                <li class="daily-icon"><img src="http://openweathermap.org/img/wn/${
                   forecastDay.weather[0].icon
                 }@2x.png" alt="" width="40" /></li>
                 <li>
@@ -198,16 +199,11 @@ function convertTemp(event) {
 
   //degreesFtoC
   if (unitF.classList.contains("active-units")) {
-    unitF.classList.remove("active-units");
-    unitF.classList.add("inactive-units");
-    unitC.classList.add("active-units");
-    unitC.classList.remove("inactive-units");
-
     //working
     displayTemp.innerHTML = `${tempC}`;
-    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}°ß`;
-
+    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}`;
     //not displaying
+    console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
     forecastData.forEach(function (forecastTemp) {
       forecastHiTemps.innerHTML = `${Math.round(
         ((forecastTemp.temp.max - 32) * 5) / 9
@@ -216,11 +212,17 @@ function convertTemp(event) {
         ((forecastTemp.temp.min - 32) * 5) / 9
       )}°`;
     });
+
+    unitF.classList.remove("active-units");
+    unitF.classList.add("inactive-units");
+    unitC.classList.add("active-units");
+    unitC.classList.remove("inactive-units");
   } else {
     //degreesCtoF
     displayTemp.innerHTML = `${tempF}`;
-    displayFeelsLikeTemp = `${feelsLikeTempF}`;
+    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempF}`;
 
+    //not displaying
     forecastData.forEach(function (forecastTemp) {
       forecastHiTemps.innerHTML = `${Math.round(forecastTemp.temp.max)}°`;
       forecastLowTemps.innerHTML = ` | ${Math.round(forecastTemp.temp.min)}°`;

@@ -53,7 +53,7 @@ function getTime(timestamp) {
   let updateTime = document.querySelector("#timestamp");
   currentDayTime.innerHTML = `Conditions as of ${hour}:${minutes} ${weekday}:`;
   updateTime.innerHTML = `Last upate: ${hour}:${minutes} ${month} ${theDate}, ${year}`;
-  //console.log(`${weekday} ${hour}:${minutes}`);
+  console.log(`${weekday} ${hour}:${minutes}`);
 }
 
 function search(city) {
@@ -62,7 +62,7 @@ function search(city) {
   let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
   let units = `imperial`;
   let ApiUrlCity = `${ApiEndpoint}q=${city}&appid=${wxKey}&units=${units}`;
-  ////console.log(ApiUrlCity);
+  //console.log(ApiUrlCity);
   axios.get(ApiUrlCity).then(retrieveWx);
 }
 
@@ -75,18 +75,18 @@ function cityName(event) {
 //User entered City Name
 let searchForm = document.querySelector(".city-search-form");
 searchForm.addEventListener("submit", cityName);
-////console.log(searchForm);
+//console.log(searchForm);
 
 function showPosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  // //console.log(position.coords.latitude);
+  // console.log(position.coords.latitude);
   let ApiEndpoint = `https://api.openweathermap.org/data/2.5/weather?`;
   let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
   let units = `imperial`;
   let ApiUrlGeo = `${ApiEndpoint}&lat=${latitude}&lon=${longitude}&appid=${wxKey}&units=${units}`;
 
-  //console.log(ApiUrlGeo);
+  console.log(ApiUrlGeo);
 
   axios.get(ApiUrlGeo).then(retrieveWx);
   // axios.get(ApiUrlGeo).then(retrieveWxFcst);
@@ -97,16 +97,14 @@ let tempC = null;
 let feelsLikeTempF = null;
 let feelsLikeTempC = null;
 function retrieveWx(wxData) {
-  //console.log(wxData);
+  console.log(wxData);
   tempF = Math.round(wxData.data.main.temp);
   tempC = Math.round(((wxData.data.main.temp - 32) * 5) / 9);
   feelsLikeTempF = Math.round(wxData.data.main.feels_like);
   feelsLikeTempC = Math.round(((wxData.data.main.feels_like - 32) * 5) / 9);
   let RH = wxData.data.main.humidity;
-
   let wxDescription = wxData.data.weather[0].description;
   let windSpeed = Math.round(wxData.data.wind.speed);
-  let windGust = Math.round(wxData.data.wind.gust);
   let wxIcon = wxData.data.weather[0].icon;
 
   document.querySelector(".city-description").innerHTML = `${wxDescription} in`;
@@ -126,7 +124,7 @@ function retrieveWx(wxData) {
 }
 
 function getForecast(coordinates) {
-  //console.log(coordinates);
+  console.log(coordinates);
 
   let ApiEndpoint = `https://api.openweathermap.org/data/2.5/onecall?`;
   let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
@@ -136,7 +134,7 @@ function getForecast(coordinates) {
   let exclude = `hourly,minutely,alerts`;
 
   let ApiUrlForecast = `${ApiEndpoint}&lat=${latitude}&lon=${longitude}&exclude=${exclude}&appid=${wxKey}&units=${units}`;
-  //console.log(ApiUrlForecast);
+  console.log(ApiUrlForecast);
   axios.get(ApiUrlForecast).then(displayForecast);
 }
 
@@ -149,7 +147,7 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
-  //console.log(response.data.daily);
+  console.log(response.data.daily);
   forecastData = response.data.daily;
 
   let forecastHTML = "";
@@ -194,18 +192,22 @@ function convertTemp(event) {
   let displayFeelsLikeTemp = document.querySelector("#feels-like");
   let forecastHiTemps = document.querySelectorAll("span.hi-temp");
   let forecastLowTemps = document.querySelectorAll("span.low-temp");
-  //console.log( `Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`);
+  console.log(
+    `Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`
+  );
 
   //degreesFtoC
   if (unitF.classList.contains("active-units")) {
     unitF.classList.remove("active-units");
     unitF.classList.add("inactive-units");
-
-    displayTemp.innerHTML = `${tempC}`;
-    displayFeelsLikeTemp = `${feelsLikeTempC}`;
     unitC.classList.add("active-units");
     unitC.classList.remove("inactive-units");
 
+    //working
+    displayTemp.innerHTML = `${tempC}`;
+    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}`;
+
+    //not displaying
     forecastData.forEach(function (forecastTemp) {
       forecastHiTemps.innerHTML = `${Math.round(
         ((forecastTemp.temp.max - 32) * 5) / 9
@@ -216,7 +218,7 @@ function convertTemp(event) {
     });
   } else {
     //degreesCtoF
-    displaytemp.innerHTML = `${tempF}`;
+    displayTemp.innerHTML = `${tempF}`;
     displayFeelsLikeTemp = `${feelsLikeTempF}`;
 
     forecastData.forEach(function (forecastTemp) {

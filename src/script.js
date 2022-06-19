@@ -205,7 +205,7 @@ function convertTemp(event) {
 
     //working
     displayTemp.innerHTML = `${tempC}`;
-    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}`;
+    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}°ß`;
 
     //not displaying
     forecastData.forEach(function (forecastTemp) {

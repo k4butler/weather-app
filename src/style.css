@@ -75,12 +75,16 @@ li {
 }
 
 .degrees {
-  font-size: 12px;
+  font-size: 14px;
   position: relative;
   font-weight: normal;
   top: -10px;
   left: -12px;
   text-decoration: none;
+}
+
+.degrees-spacer {
+  color: gray;
 }
 
 .daily-icon,
@@ -101,7 +105,7 @@ li {
 }
 
 .inactive-units:hover {
-  font-size: 14px;
+  font-size: 16px;
   text-decoration: underline;
 }
 

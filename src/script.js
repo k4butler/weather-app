@@ -201,7 +201,7 @@ function convertTemp(event) {
     displayTemp.innerHTML = `${tempC}`;
     displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}`;
 
-    console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
+    //console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
     forecastData.forEach(function (forecastTemp, index) {
       
       if (index < 6){

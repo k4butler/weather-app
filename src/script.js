@@ -116,7 +116,7 @@ function retrieveWx(wxData) {
   document.querySelector("#windspeed").innerHTML = `${windSpeed} mph`;
   document
     .querySelector("#wx-icon")
-    .setAttribute("src", `http://openweathermap.org/img/wn/${wxIcon}.png`);
+    .setAttribute("src", `https://openweathermap.org/img/wn/${wxIcon}.png`);
   document.querySelector("#wx-icon").setAttribute("alt", `${wxDescription}`);
 
   getTime(wxData.data.dt);
@@ -167,7 +167,7 @@ function displayForecast(response) {
                 <li>
                 ${theDay}
                 </li>
-                <li class="daily-icon"><img src="http://openweathermap.org/img/wn/${
+                <li class="daily-icon"><img src="https://openweathermap.org/img/wn/${
                   forecastDay.weather[0].icon
                 }@2x.png" alt="" width="40" /></li>
                 <li>

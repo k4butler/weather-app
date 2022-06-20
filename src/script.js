@@ -204,11 +204,11 @@ function convertTemp(event) {
     displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}`;
     //not displaying
     console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
-    forecastData.forEach(function (forecastTemp) {
-      forecastHiTemps.innerHTML = `${Math.round(
+    forecastData.forEach(function (forecastTemp, index) {
+      forecastHiTemps[index].innerHTML = `${Math.round(
         ((forecastTemp.temp.max - 32) * 5) / 9
       )}°`;
-      forecastLowTemps.innerHTML = ` | ${Math.round(
+      forecastLowTemps[index].innerHTML = ` | ${Math.round(
         ((forecastTemp.temp.min - 32) * 5) / 9
       )}°`;
     });
@@ -223,9 +223,13 @@ function convertTemp(event) {
     displayFeelsLikeTemp.innerHTML = `${feelsLikeTempF}`;
 
     //not displaying
-    forecastData.forEach(function (forecastTemp) {
-      forecastHiTemps.innerHTML = `${Math.round(forecastTemp.temp.max)}°`;
-      forecastLowTemps.innerHTML = ` | ${Math.round(forecastTemp.temp.min)}°`;
+    forecastData.forEach(function (forecastTemp, index) {
+      forecastHiTemps[index].innerHTML = `${Math.round(
+        forecastTemp.temp.max
+      )}°`;
+      forecastLowTemps[index].innerHTML = ` | ${Math.round(
+        forecastTemp.temp.min
+      )}°`;
     });
 
     unitC.classList.remove("active-units");

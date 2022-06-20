@@ -193,9 +193,7 @@ function convertTemp(event) {
   let displayFeelsLikeTemp = document.querySelector("#feels-like");
   let forecastHiTemps = document.querySelectorAll("span.hi-temp");
   let forecastLowTemps = document.querySelectorAll("span.low-temp");
- // console.log(
-    `Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`
-  );
+ // console.log(`Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`);
 
   //degreesFtoC
   if (unitF.classList.contains("active-units")) {

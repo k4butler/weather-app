@@ -53,7 +53,7 @@ function getTime(timestamp) {
   let updateTime = document.querySelector("#timestamp");
   currentDayTime.innerHTML = `Conditions as of ${hour}:${minutes} ${weekday}:`;
   updateTime.innerHTML = `Last upate: ${hour}:${minutes} ${month} ${theDate}, ${year}`;
-  console.log(`${weekday} ${hour}:${minutes}`);
+ // console.log(`${weekday} ${hour}:${minutes}`);
 }
 
 function search(city) {
@@ -86,7 +86,7 @@ function showPosition(position) {
   let units = `imperial`;
   let ApiUrlGeo = `${ApiEndpoint}&lat=${latitude}&lon=${longitude}&appid=${wxKey}&units=${units}`;
 
-  console.log(ApiUrlGeo);
+  //console.log(ApiUrlGeo);
 
   axios.get(ApiUrlGeo).then(retrieveWx);
   // axios.get(ApiUrlGeo).then(retrieveWxFcst);
@@ -98,7 +98,7 @@ let feelsLikeTempF = null;
 let feelsLikeTempC = null;
 
 function retrieveWx(wxData) {
-  console.log(wxData);
+  //console.log(wxData);
   tempF = Math.round(wxData.data.main.temp);
   tempC = Math.round(((wxData.data.main.temp - 32) * 5) / 9);
   feelsLikeTempF = Math.round(wxData.data.main.feels_like);
@@ -125,7 +125,7 @@ function retrieveWx(wxData) {
 }
 
 function getForecast(coordinates) {
-  console.log(coordinates);
+  //console.log(coordinates);
 
   let ApiEndpoint = `https://api.openweathermap.org/data/2.5/onecall?`;
   let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
@@ -135,7 +135,7 @@ function getForecast(coordinates) {
   let exclude = `hourly,minutely,alerts`;
 
   let ApiUrlForecast = `${ApiEndpoint}&lat=${latitude}&lon=${longitude}&exclude=${exclude}&appid=${wxKey}&units=${units}`;
-  console.log(ApiUrlForecast);
+  //console.log(ApiUrlForecast);
   axios.get(ApiUrlForecast).then(displayForecast);
 }
 
@@ -148,7 +148,7 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  //console.log(response.data.daily);
   forecastData = response.data.daily;
 
   let forecastHTML = "";
@@ -193,16 +193,16 @@ function convertTemp(event) {
   let displayFeelsLikeTemp = document.querySelector("#feels-like");
   let forecastHiTemps = document.querySelectorAll("span.hi-temp");
   let forecastLowTemps = document.querySelectorAll("span.low-temp");
-  console.log(
+ // console.log(
     `Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`
   );
 
   //degreesFtoC
   if (unitF.classList.contains("active-units")) {
-    //working
+    
     displayTemp.innerHTML = `${tempC}`;
     displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}`;
-    //not displaying
+
     console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
     forecastData.forEach(function (forecastTemp, index) {
       
@@ -225,7 +225,7 @@ function convertTemp(event) {
     displayTemp.innerHTML = `${tempF}`;
     displayFeelsLikeTemp.innerHTML = `${feelsLikeTempF}`;
 
-    //not displaying
+   
     forecastData.forEach(function (forecastTemp, index) {
         if (index < 6){
       forecastHiTemps[index].innerHTML = `${Math.round(

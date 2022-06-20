@@ -205,14 +205,17 @@ function convertTemp(event) {
     //not displaying
     console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
     forecastData.forEach(function (forecastTemp, index) {
+      
+      if (index < 6){
       forecastHiTemps[index].innerHTML = `${Math.round(
         ((forecastTemp.temp.max - 32) * 5) / 9
       )}°`;
       forecastLowTemps[index].innerHTML = ` | ${Math.round(
         ((forecastTemp.temp.min - 32) * 5) / 9
       )}°`;
+      }
     });
-
+    
     unitF.classList.remove("active-units");
     unitF.classList.add("inactive-units");
     unitC.classList.add("active-units");
@@ -224,12 +227,14 @@ function convertTemp(event) {
 
     //not displaying
     forecastData.forEach(function (forecastTemp, index) {
+        if (index < 6){
       forecastHiTemps[index].innerHTML = `${Math.round(
         forecastTemp.temp.max
       )}°`;
       forecastLowTemps[index].innerHTML = ` | ${Math.round(
         forecastTemp.temp.min
       )}°`;
+        }
     });
 
     unitC.classList.remove("active-units");

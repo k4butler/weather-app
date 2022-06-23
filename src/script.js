@@ -121,7 +121,7 @@ function retrieveWx(wxData) {
     windConvert = Math.round(windSpeed * 0.44704);
     windUnits = "mph";
     windUnitsConvert = "m/s";
-    console.log(`the units are ${units}`);
+    //console.log(`the units are ${units}`);
   } else {
     tempConvert = Math.round(wxData.data.main.temp * (9 / 5) + 32);
     feelsLikeTempConvert = Math.round(
@@ -130,7 +130,7 @@ function retrieveWx(wxData) {
     windUnits = "m/s";
     windConvert = Math.round(windSpeed * 2.23694);
     windUnitsConvert = "mph";
-    console.log(`the units are ${units}`);
+    // console.log(`the units are ${units}`);
   }
   let RH = wxData.data.main.humidity;
   let wxDescription = wxData.data.weather[0].description;
@@ -310,6 +310,7 @@ let forecastData = [];
 
 function getPosition(event) {
   event.preventDefault();
+  document.getElementById("city-input").value = "";
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 let buttonLocation = document.querySelector("#button-location");

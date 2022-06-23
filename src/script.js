@@ -53,14 +53,18 @@ function getTime(timestamp) {
   let updateTime = document.querySelector("#timestamp");
   currentDayTime.innerHTML = `Conditions as of ${hour}:${minutes} ${weekday}:`;
   updateTime.innerHTML = `Last upate: ${hour}:${minutes} ${month} ${theDate}, ${year}`;
- // console.log(`${weekday} ${hour}:${minutes}`);
+  // console.log(`${weekday} ${hour}:${minutes}`);
 }
 
 function search(city) {
+  if (unitF.classList.contains("active-units")) {
+    units = "imperial";
+  } else {
+    units = "metric";
+  }
   //Now get Wx Data by City Name
   let ApiEndpoint = `https://api.openweathermap.org/data/2.5/weather?`;
   let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
-  let units = `imperial`;
   let ApiUrlCity = `${ApiEndpoint}q=${city}&appid=${wxKey}&units=${units}`;
   //console.log(ApiUrlCity);
   axios.get(ApiUrlCity).then(retrieveWx);
@@ -78,42 +82,66 @@ searchForm.addEventListener("submit", cityName);
 //console.log(searchForm);
 
 function showPosition(position) {
+  if (unitF.classList.contains("active-units")) {
+    units = "imperial";
+  } else {
+    units = "metric";
+  }
+
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   // console.log(position.coords.latitude);
   let ApiEndpoint = `https://api.openweathermap.org/data/2.5/weather?`;
   let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
-  let units = `imperial`;
   let ApiUrlGeo = `${ApiEndpoint}&lat=${latitude}&lon=${longitude}&appid=${wxKey}&units=${units}`;
-
-  //console.log(ApiUrlGeo);
-
   axios.get(ApiUrlGeo).then(retrieveWx);
-  // axios.get(ApiUrlGeo).then(retrieveWxFcst);
 }
 
-let tempF = null;
-let tempC = null;
-let feelsLikeTempF = null;
-let feelsLikeTempC = null;
+let temp = null;
+let tempConvert = null;
+let feelsLikeTemp = null;
+let feelsLikeTempConvert = null;
+let units = null;
+let windUnits = null;
+let windSpeed = null;
+let windUnitsConvert = null;
 
 function retrieveWx(wxData) {
   //console.log(wxData);
-  tempF = Math.round(wxData.data.main.temp);
-  tempC = Math.round(((wxData.data.main.temp - 32) * 5) / 9);
-  feelsLikeTempF = Math.round(wxData.data.main.feels_like);
-  feelsLikeTempC = Math.round(((wxData.data.main.feels_like - 32) * 5) / 9);
+  temp = Math.round(wxData.data.main.temp);
+  feelsLikeTemp = Math.round(wxData.data.main.feels_like);
+  windSpeed = Math.round(wxData.data.wind.speed);
+
+  if (units == "imperial") {
+    //then convert to metric
+    tempConvert = Math.round(((wxData.data.main.temp - 32) * 5) / 9);
+    feelsLikeTempConvert = Math.round(
+      ((wxData.data.main.feels_like - 32) * 5) / 9
+    );
+    windConvert = Math.round(windSpeed * 0.44704);
+    windUnits = "mph";
+    windUnitsConvert = "m/s";
+    console.log(`the units are ${units}`);
+  } else {
+    tempConvert = Math.round(wxData.data.main.temp * (9 / 5) + 32);
+    feelsLikeTempConvert = Math.round(
+      wxData.data.main.feels_like * (9 / 5) + 32
+    );
+    windUnits = "m/s";
+    windConvert = Math.round(windSpeed * 2.23694);
+    windUnitsConvert = "mph";
+    console.log(`the units are ${units}`);
+  }
   let RH = wxData.data.main.humidity;
   let wxDescription = wxData.data.weather[0].description;
-  let windSpeed = Math.round(wxData.data.wind.speed);
   let wxIcon = wxData.data.weather[0].icon;
 
   document.querySelector(".city-description").innerHTML = `${wxDescription} in`;
   document.querySelector("#city-name").innerHTML = wxData.data.name;
-  document.querySelector("#current-temp").innerHTML = tempF;
-  document.querySelector("#feels-like").innerHTML = feelsLikeTempF;
+  document.querySelector("#current-temp").innerHTML = temp;
+  document.querySelector("#feels-like").innerHTML = feelsLikeTemp;
   document.querySelector("#humidity").innerHTML = `${RH}%`;
-  document.querySelector("#windspeed").innerHTML = `${windSpeed} mph`;
+  document.querySelector("#windspeed").innerHTML = `${windSpeed} ${windUnits}`;
   document
     .querySelector("#wx-icon")
     .setAttribute("src", `https://openweathermap.org/img/wn/${wxIcon}.png`);
@@ -129,11 +157,14 @@ function getForecast(coordinates) {
 
   let ApiEndpoint = `https://api.openweathermap.org/data/2.5/onecall?`;
   let wxKey = `28ae6024d5ca8fdbf0e5b7d7fe38ed95`;
-  let units = `imperial`;
   let latitude = coordinates.lat;
   let longitude = coordinates.lon;
   let exclude = `hourly,minutely,alerts`;
-
+  if (unitF.classList.contains("active-units")) {
+    units = "imperial";
+  } else {
+    units = "metric";
+  }
   let ApiUrlForecast = `${ApiEndpoint}&lat=${latitude}&lon=${longitude}&exclude=${exclude}&appid=${wxKey}&units=${units}`;
   //console.log(ApiUrlForecast);
   axios.get(ApiUrlForecast).then(displayForecast);
@@ -189,56 +220,80 @@ function displayForecast(response) {
 
 function convertTemp(event) {
   event.preventDefault();
-  let displayTemp = document.querySelector("#current-temp");
-  let displayFeelsLikeTemp = document.querySelector("#feels-like");
-  let forecastHiTemps = document.querySelectorAll("span.hi-temp");
-  let forecastLowTemps = document.querySelectorAll("span.low-temp");
- // console.log(`Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`);
 
-  //degreesFtoC
   if (unitF.classList.contains("active-units")) {
-    
-    displayTemp.innerHTML = `${tempC}`;
-    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempC}`;
-
-    //console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
-    forecastData.forEach(function (forecastTemp, index) {
-      
-      if (index < 6){
-      forecastHiTemps[index].innerHTML = `${Math.round(
-        ((forecastTemp.temp.max - 32) * 5) / 9
-      )}°`;
-      forecastLowTemps[index].innerHTML = ` | ${Math.round(
-        ((forecastTemp.temp.min - 32) * 5) / 9
-      )}°`;
-      }
-    });
-    
     unitF.classList.remove("active-units");
     unitF.classList.add("inactive-units");
     unitC.classList.add("active-units");
     unitC.classList.remove("inactive-units");
   } else {
-    //degreesCtoF
-    displayTemp.innerHTML = `${tempF}`;
-    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempF}`;
-
-   
-    forecastData.forEach(function (forecastTemp, index) {
-        if (index < 6){
-      forecastHiTemps[index].innerHTML = `${Math.round(
-        forecastTemp.temp.max
-      )}°`;
-      forecastLowTemps[index].innerHTML = ` | ${Math.round(
-        forecastTemp.temp.min
-      )}°`;
-        }
-    });
-
     unitC.classList.remove("active-units");
     unitC.classList.add("inactive-units");
     unitF.classList.add("active-units");
     unitF.classList.remove("inactive-units");
+  }
+
+  let displayTemp = document.querySelector("#current-temp");
+  let displayFeelsLikeTemp = document.querySelector("#feels-like");
+  let forecastHiTemps = document.querySelectorAll("span.hi-temp");
+  let forecastLowTemps = document.querySelectorAll("span.low-temp");
+  let displayWind = document.querySelector("#windspeed");
+  // console.log(`Testing if i still have access to day 1 MaxT: ${forecastData[0].temp.max}`);
+
+  //If searched units were imperial, convert to metric
+  if (units == "imperial" && unitC.classList.contains("active-units")) {
+    displayTemp.innerHTML = `${tempConvert}`;
+    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempConvert}`;
+    displayWind.innerHTML = `${windConvert} ${windUnitsConvert}`;
+
+    //console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
+    forecastData.forEach(function (forecastTemp, index) {
+      if (index < 6) {
+        forecastHiTemps[index].innerHTML = `${Math.round(
+          ((forecastTemp.temp.max - 32) * 5) / 9
+        )}°`;
+        forecastLowTemps[index].innerHTML = ` | ${Math.round(
+          ((forecastTemp.temp.min - 32) * 5) / 9
+        )}°`;
+      }
+    });
+
+    //If searched units were metric, convert to imperial
+  } else if (units == "metric" && unitF.classList.contains("active-units")) {
+    displayTemp.innerHTML = `${tempConvert}`;
+    displayFeelsLikeTemp.innerHTML = `${feelsLikeTempConvert}`;
+    displayWind.innerHTML = `${windConvert} ${windUnitsConvert}`;
+
+    //console.log(`Testing again to day 1 MaxT: ${forecastData[0].temp.max}`);
+    forecastData.forEach(function (forecastTemp, index) {
+      if (index < 6) {
+        forecastHiTemps[index].innerHTML = `${Math.round(
+          forecastTemp.temp.max * (9 / 5) + 32
+        )}°`;
+        forecastLowTemps[index].innerHTML = ` | ${Math.round(
+          forecastTemp.temp.min * (9 / 5) + 32
+        )}°`;
+      }
+    });
+    //If returning to searched units
+  } else if (
+    (units == "metric" && unitC.classList.contains("active-units")) ||
+    (units == "imperial" && unitF.classList.contains("active-units"))
+  ) {
+    displayTemp.innerHTML = `${temp}`;
+    displayFeelsLikeTemp.innerHTML = `${feelsLikeTemp}`;
+    displayWind.innerHTML = `${windSpeed} ${windUnits}`;
+
+    forecastData.forEach(function (forecastTemp, index) {
+      if (index < 6) {
+        forecastHiTemps[index].innerHTML = `${Math.round(
+          forecastTemp.temp.max
+        )}°`;
+        forecastLowTemps[index].innerHTML = ` | ${Math.round(
+          forecastTemp.temp.min
+        )}°`;
+      }
+    });
   }
 }
 
